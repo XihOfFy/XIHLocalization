@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6fa52d3260d4544a3e6049e632ced1, type: 3}
+  m_Name: en
+  m_EditorClassIdentifier: 
+  keyWords:
+  - key: cur_lag
+    word: "Cur Language: {0},This use Csharp Invoke\uFF0CSo don't need Add LocalizationText
+      Component"
+  - key: test_key1
+    word: '{0} Test'
+  - key: language
+    word: English
+  - key: cur_lag2
+    word: "Cur Language: {0},This Auto Invoke\uFF0CSo need Add LocalizationText Component"
