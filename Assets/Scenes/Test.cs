@@ -6,7 +6,6 @@ using XIHLocalization;
 public class Test : MonoBehaviour
 {
     public Text text;
-    // Start is called before the first frame update
     private void OnEnable()
     {
         LocalizationUtil.LanugeChanged += OnLanguageChanged;

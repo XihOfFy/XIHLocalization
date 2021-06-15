@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace XIHLocalization
 {
-    [CreateAssetMenu(fileName = "LanguageCfg_tmp", menuName = "XIHScriptableObject/Language ScriptableObject", order = 1)]
+    //[CreateAssetMenu(fileName = "LanguageCfg_tmp", menuName = "XIHScriptableObject/Language ScriptableObject", order = 1)]
     public class LanguageCfg : ScriptableObject
     {
-        [SerializeField]
         public List<KeyWord> keyWords;
     }
     [Serializable]
