@@ -6,15 +6,19 @@ using UnityEngine;
 namespace XIHLocalization
 {
     //[CreateAssetMenu(fileName = "LanguageCfg_tmp", menuName = "XIHScriptableObject/Language ScriptableObject", order = 1)]
-    public class LanguageCfg : ScriptableObject
+    public class I18NCfg : ScriptableObject
     {
-        public List<KeyWord> keyWords;
+        public List<KeyWords> keyWords;
     }
     [Serializable]
-    public struct KeyWord
+    public class KeyWords
     {
         public string key;
+        public List<Words> words;
+    }
+    [Serializable]
+    public class Words {
+        public XIHLanguage language;
         public string word;
     }
-
 }

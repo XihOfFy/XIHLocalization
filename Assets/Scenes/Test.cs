@@ -8,23 +8,23 @@ public class Test : MonoBehaviour
     public Text text;
     private void OnEnable()
     {
-        LocalizationUtil.LanugeChanged += OnLanguageChanged;
+        I18NUtil.LanugeChanged += OnLanguageChanged;
     }
     private void OnDisable()
     {
-        LocalizationUtil.LanugeChanged -= OnLanguageChanged;
+        I18NUtil.LanugeChanged -= OnLanguageChanged;
     }
     void OnLanguageChanged(XIHLanguage language) {
-        text.text = string.Format(LocalizationConsts.CUR_LAG,LocalizationConsts.LANGUAGE);
+        text.text = string.Format(I18NConsts.CUR_LAG,I18NConsts.LANGUAGE);
     }
     public void SetLanguageCN() {
-        LocalizationUtil.SetLanguage(XIHLanguage.cn);
+        I18NUtil.SetLanguage(XIHLanguage.cn);
     }
     public void SetLanguageZH_TW() {
-        LocalizationUtil.SetLanguage(XIHLanguage.zh_TW);
+        I18NUtil.SetLanguage(XIHLanguage.zh_TW);
     }
     public void SetLanguageEN()
     {
-        LocalizationUtil.SetLanguage(XIHLanguage.en);
+        I18NUtil.SetLanguage(XIHLanguage.en);
     }
 }
