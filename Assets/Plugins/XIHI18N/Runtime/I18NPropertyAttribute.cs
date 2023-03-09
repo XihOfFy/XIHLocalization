@@ -16,6 +16,7 @@ namespace XIHLocalization
     {
         public static string[] GetRecommendKeys(string prefix)
         {
+            if (string.IsNullOrEmpty(prefix)) return empty;
             var dmy = root;
             var cs = prefix.ToCharArray();
             int idx = -1;
