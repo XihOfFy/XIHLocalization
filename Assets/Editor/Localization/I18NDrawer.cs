@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace XIHLocalization
 {
@@ -21,14 +22,28 @@ namespace XIHLocalization
                     lgs.Add(lg);
                 }
             }
-            Debug.LogError("待测试GetSearchKeys");
+            index = -1;
         }
+        int index;
+        string previousString;
+        string[] suggests;
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
             Rect propertylabelRect = new Rect(position.x, position.y, position.width, baseHeight);
             EditorGUI.PropertyField(propertylabelRect, property, GUIContent.none);
+            if (!property.stringValue.Equals(previousString)) {
+                suggests = I18NEditorUtil.GetRecommendKeys(property.stringValue);
+                previousString = property.stringValue;
+                index = -1;
+            }
             height = baseHeight;
+            var newIdx = EditorGUI.Popup(new Rect(position.x, position.y + height, position.width, baseHeight), index, suggests);
+            if (newIdx != index) {
+                property.stringValue = suggests[newIdx];
+                index = newIdx;
+            }
+            height += baseHeight;
             foreach (var lg in lgs) {
                 height+=DrawContent(position, property.stringValue,lg);
             }

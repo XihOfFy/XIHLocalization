@@ -6,24 +6,15 @@ using UnityEngine;
 
 namespace XIHLocalization
 {
-    [AttributeUsage(AttributeTargets.Field|AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field|AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public class I18NPropertyAttribute : PropertyAttribute
     {
-        private static readonly List<string> empty = new List<string>();
-        public List<string> GetSearchKeys(string prefix)
-        {
-#if UNITY_EDITOR
-            return I18NEditorUtil.GetRecommendKeys(prefix);
-#else
-            return empty;
-#endif
-        }
     }
 #if UNITY_EDITOR
     [UnityEditor.InitializeOnLoad]
     public static class I18NEditorUtil
     {
-        public static List<string> GetRecommendKeys(string prefix)
+        public static string[] GetRecommendKeys(string prefix)
         {
             var dmy = root;
             var cs = prefix.ToCharArray();
@@ -40,25 +31,26 @@ namespace XIHLocalization
                 return empty;
             }
             StringBuilder sb = new StringBuilder(prefix);
+            --sb.Length;
             var ans = new List<string>();
             DFSSearch(dmy, sb, ans);
-            return ans;
+            return ans.ToArray();
         }
         private static void DFSSearch(KeyLink key, StringBuilder sb, List<string> ans)
         {
+            sb.Append(key.val);
             if (key.isEnd)
             {
-                sb.Append(key.val);
                 ans.Add(sb.ToString());
             }
             foreach (var cd in key.links)
             {
                 DFSSearch(cd.Value, sb, ans);
             }
-            --sb.Length;
+            if(sb.Length>0) --sb.Length;
         }
         private static  KeyLink root;
-        private static readonly List<string> empty = new List<string>();
+        private static readonly string[] empty = new string[0];
         private class KeyLink
         {
             public char val;

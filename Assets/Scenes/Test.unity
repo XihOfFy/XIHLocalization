@@ -279,8 +279,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cur Language: English,This Auto Invoke\uFF0CSo need Add LocalizationText
-    Component"
+  m_Text: "\u7576\u524D\u8A9E\u8A00\u70BA: \u7E41\u9AD4\u4E2D\u6587,\u9019\u662F\u81EA\u52A8\u8ABF\u7528\u7684\uFF0C\u9700\u6DFB\u52A0LocalizationText\u7D44\u4EF6"
 --- !u!222 &79799869
 CanvasRenderer:
   m_ObjectHideFlags: 0
