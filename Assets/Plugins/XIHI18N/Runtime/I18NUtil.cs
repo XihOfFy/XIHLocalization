@@ -52,7 +52,7 @@ namespace XIHLocalization
 #endif
             if (cfg == null)
             {
-                Debug.LogError($"File Not Exits in {AssetPath},Please change yourself logic to load LanguageCfg");
+                Debug.LogError($"File Not Exits in {AssetPath},Please change yourself logic to load I18NCfg");
                 return;
             }
             wordsDics.Clear();
@@ -107,7 +107,7 @@ namespace XIHLocalization
 #endif
             if (sp == null)
             {
-                Debug.LogWarning($"{ph}图片不存在");
+                Debug.LogError($"File Not Exits in {ph},Please change yourself logic to load sprite");
                 return null;
             }
             return sp;
