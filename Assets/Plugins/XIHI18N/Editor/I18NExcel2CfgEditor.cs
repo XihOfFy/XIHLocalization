@@ -11,7 +11,7 @@ namespace XIHLocalization
     public class I18NExcel2CfgEditor
     {
         const string excelPath = "doc/Localization.xlsx";
-        const string classPath = "Assets/Scripts/Localization/LocalizationConsts.cs";
+        const string classPath = "Assets/Test/I18NKeys.cs";
         [MenuItem("XIHUtil/LocalizationExcel2Cfg")]
         public static void Excel2Cfg()
         {

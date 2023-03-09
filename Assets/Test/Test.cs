@@ -15,7 +15,7 @@ public class Test : MonoBehaviour
         I18NUtil.LanugeChanged -= OnLanguageChanged;
     }
     void OnLanguageChanged(XIHLanguage language) {
-        text.text = string.Format(I18NConsts.CUR_LAG,I18NConsts.LANGUAGE);
+        text.text = string.Format(I18NKeys.CUR_LAG, I18NKeys.LANGUAGE);
     }
     public void SetLanguageCN() {
         I18NUtil.SetLanguage(XIHLanguage.cn);
