@@ -2,7 +2,7 @@
     "name": "XIH18N.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:3d1b0f3b50546394a9196b6a9f1a6b32"
+        "XIH18N"
     ],
     "includePlatforms": [
         "Editor"
