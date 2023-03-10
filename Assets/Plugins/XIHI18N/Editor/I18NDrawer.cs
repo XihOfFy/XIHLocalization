@@ -69,30 +69,30 @@ namespace XIHLocalization
         {
             return height;
         }
-        int maxHeight = 64;
-        int maxWidth = 64;
+        const int MAX_HEIGHT = 64;
+        const int MAX_WIDTH = 128;
         public Vector2 GetTextureShowRect(Texture2D texture)
         {
-            if (texture.height < maxHeight)
+            if (texture.height < MAX_HEIGHT)
             {
-                if (texture.width < maxWidth)
+                if (texture.width < MAX_WIDTH)
                 {
                     return new Vector2(texture.width, texture.height);
                 }
                 else
                 {
-                    return new Vector2(maxWidth, texture.height * maxWidth / texture.width);
+                    return new Vector2(MAX_WIDTH, texture.height * MAX_WIDTH / texture.width);
                 }
             }
             else
             {
-                if (texture.width < maxWidth)
+                if (texture.width < MAX_WIDTH)
                 {
-                    return new Vector2(texture.width * maxHeight / texture.height, maxHeight);
+                    return new Vector2(texture.width * MAX_HEIGHT / texture.height, MAX_HEIGHT);
                 }
                 else
                 {
-                    float max = Mathf.Max(texture.width / maxWidth, texture.height / maxHeight);
+                    float max = Mathf.Max(texture.width / MAX_WIDTH, texture.height / MAX_HEIGHT);
                     return new Vector2(texture.width / max, texture.height / max);
                 }
             }

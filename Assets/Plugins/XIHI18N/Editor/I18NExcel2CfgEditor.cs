@@ -8,14 +8,26 @@ using UnityEditor;
 using UnityEngine;
 namespace XIHLocalization
 {
-    public class I18NExcel2CfgEditor
+    public class I18NExcel2CfgEditor:EditorWindow
     {
         const string excelPath = "doc/Localization.xlsx";
         const string classPath = "Assets/Test/I18NKeys.cs";
-        [MenuItem("XIHUtil/LocalizationExcel2Cfg")]
-        public static void Excel2Cfg()
+        [MenuItem("XIHUtil/I18N")]
+        static void I18NWindow() {
+            EditorWindow.GetWindow<I18NExcel2CfgEditor>(nameof(I18NExcel2CfgEditor));
+        }
+        private void OnGUI()
         {
-            Debug.Log($"要求:Excel必须在{excelPath}，\r\n包含localization表，\r\n单元格必须全是string类型，\r\n第一列首单元格必须是\"key\"列,其他列首单元格必须是和{nameof(XIHLanguage)}枚举内容一致(none除外),字母大小需一致，\r\n \"key\"列不许出现空，否则表示终止");
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.HelpBox($"本地化工具，将{excelPath}的配置表转换为{I18NUtil.AssetPath}配置文件，并生成{classPath}类辅助使用本地化key,若想改变xlsx文件路径或输出c#路径，可修改本脚本{nameof(excelPath)}和{nameof(classPath)}的常量值",MessageType.Warning);
+            EditorGUILayout.HelpBox($"要求:Excel必须在{excelPath}，\r\n包含localization表，\r\n单元格必须全是string类型，\r\n第一列首单元格必须是\"key\"列,其他列首单元格必须是和{nameof(XIHLanguage)}枚举内容一致(none除外),字母大小需一致，\r\n \"key\"列不许出现空，否则表示终止", MessageType.Info);
+            if (GUILayout.Button($"执行生成{I18NUtil.AssetPath}")) {
+                Excel2Cfg(EditorUtility.DisplayDialog("确认", $"是否生成{classPath}", "确定", "否"));
+            }
+            EditorGUILayout.EndVertical();
+        }
+        public void Excel2Cfg(bool genCs)
+        {
             if (!File.Exists(excelPath))
             {
                 Debug.LogError($"未找到{excelPath}文件");
@@ -54,14 +66,17 @@ namespace XIHLocalization
                 }
                 lgsDics[language] = size;
             }
-            HashSet<string> keys = null;
-            keys = GetCfg(lgsDics, sheet);
-            GenerClass(keys);
+
+            if (genCs) {
+                HashSet<string> keys = null;
+                keys = GetCfg(lgsDics, sheet);
+                GenerClass(keys);
+            }
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log("操作完成");
         }
-        static HashSet<string> GetCfg(Dictionary<XIHLanguage, int> lgsDics, ISheet sheet)
+        HashSet<string> GetCfg(Dictionary<XIHLanguage, int> lgsDics, ISheet sheet)
         {
             I18NCfg cfg = AssetDatabase.LoadAssetAtPath<I18NCfg>(I18NUtil.AssetPath);
             if (cfg == null)
@@ -106,7 +121,7 @@ namespace XIHLocalization
             AssetDatabase.SaveAssets();
             return keys;
         }
-        static void GenerClass(HashSet<string> keys)
+        void GenerClass(HashSet<string> keys)
         {
             if (keys == null) return;
             if (!File.Exists(classPath))
@@ -124,7 +139,7 @@ namespace XIHLocalization
             }
             sb.AppendLine("    }");
             sb.AppendLine("}");
-            Debug.Log("生成 LocalizationConsts.cs 成功");
+            Debug.Log($"生成 {classPath} 成功");
             File.WriteAllText(classPath, sb.ToString());
         }
     }

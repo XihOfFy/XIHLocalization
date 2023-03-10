@@ -21,7 +21,7 @@ namespace XIHLocalization
         public static XIHLanguage SavedLanguage { get; private set; }
         static I18NUtil()
         {
-            int lag = PlayerPrefs.GetInt("FATTY_LANGUAGE", 0);
+            int lag = PlayerPrefs.GetInt("LANGUAGE", 0);
             wordsDics = new Dictionary<string, Dictionary<XIHLanguage, string>>();
             spriteDics = new Dictionary<string, Sprite>();
             SavedLanguage = (XIHLanguage)lag;
@@ -69,7 +69,7 @@ namespace XIHLocalization
         public static void SetLanguage(XIHLanguage language)
         {
             if (SavedLanguage == language && wordsDics.Count > 0) return;
-            PlayerPrefs.SetInt("FATTY_LANGUAGE", (int)language);
+            PlayerPrefs.SetInt("LANGUAGE", (int)language);
             PlayerPrefs.Save();
             Debug.Log("自定义保存当前语言");
             SavedLanguage = language;
