@@ -1,12 +1,8 @@
 {
-    "name": "XIH18N.Editor",
+    "name": "XIHI18N",
     "rootNamespace": "",
-    "references": [
-        "XIH18N"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "references": [],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

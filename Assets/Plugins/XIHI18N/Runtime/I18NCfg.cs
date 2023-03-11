@@ -36,16 +36,13 @@ namespace XIHLocalization
         {
             position.height = baseHeight;
             EditorGUI.BeginProperty(position, label, property);
-            var pro = property.FindPropertyRelative(nameof(KeyWords.key));
-            EditorGUI.LabelField(position, pro.stringValue);
-            position.y += baseHeight;
-            pro = property.FindPropertyRelative(nameof(KeyWords.words));
-            EditorGUI.PropertyField(position, pro);
+            var pro = property.FindPropertyRelative(nameof(KeyWords.words));
+            EditorGUI.PropertyField(position, pro,label,true);
             EditorGUI.EndProperty();
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUI.GetPropertyHeight(property, label, true) - baseHeight;
+            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative(nameof(KeyWords.words)), label);
         }
     }
 
