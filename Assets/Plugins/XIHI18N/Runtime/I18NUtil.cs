@@ -48,7 +48,7 @@ namespace XIHLocalization
 #if UNITY_EDITOR
             I18NCfg cfg = UnityEditor.AssetDatabase.LoadAssetAtPath<I18NCfg>(AssetPath);
 #else 
-            LanguageCfg cfg=null;
+            I18NCfg cfg=null;
 #endif
             if (cfg == null)
             {
