@@ -21,7 +21,7 @@ namespace XIHLocalization
             }
             else
             {
-                GUI.Label(new Rect(position.x, position.y + height, position.width, baseHeight), $"{XIHLanguage.cn} Pic is Not Exist");
+                GUI.Label(new Rect(position.x, position.y + height, position.width, baseHeight), $"{lg} Pic is Not Exist");
                 return baseHeight;
             }
         }

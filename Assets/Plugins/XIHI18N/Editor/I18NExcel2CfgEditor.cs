@@ -12,6 +12,7 @@ namespace XIHLocalization
     {
         const string excelPath = "doc/Localization.xlsx";
         const string classPath = "Assets/Test/I18NKeys.cs";
+        public static string AssetEditorPath = $"Assets/ABs/I18N/{I18NUtil.ASSET_NAME}";
         [MenuItem("XIHUtil/I18N")]
         static void I18NWindow() {
             EditorWindow.GetWindow<I18NExcel2CfgEditor>(nameof(I18NExcel2CfgEditor));
@@ -19,9 +20,9 @@ namespace XIHLocalization
         private void OnGUI()
         {
             EditorGUILayout.BeginVertical();
-            EditorGUILayout.HelpBox($"本地化工具，将{excelPath}的配置表转换为{I18NUtil.AssetPath}配置文件，并生成{classPath}类辅助使用本地化key,若想改变xlsx文件路径或输出c#路径，可修改本脚本{nameof(excelPath)}和{nameof(classPath)}的常量值",MessageType.Warning);
+            EditorGUILayout.HelpBox($"本地化工具，将{excelPath}的配置表转换为{AssetEditorPath}配置文件，并生成{classPath}类辅助使用本地化key,若想改变xlsx文件路径或输出c#路径，可修改本脚本{nameof(excelPath)}和{nameof(classPath)}的常量值",MessageType.Warning);
             EditorGUILayout.HelpBox($"要求:Excel必须在{excelPath}，\r\n包含localization表，\r\n单元格必须全是string类型，\r\n第一列首单元格必须是\"key\"列,其他列首单元格必须是和{nameof(XIHLanguage)}枚举内容一致(none除外),字母大小需一致，\r\n \"key\"列不许出现空，否则表示终止", MessageType.Info);
-            if (GUILayout.Button($"执行生成{I18NUtil.AssetPath}")) {
+            if (GUILayout.Button($"执行生成{AssetEditorPath}")) {
                 Excel2Cfg(EditorUtility.DisplayDialog("确认", $"是否生成{classPath}", "确定", "否"));
             }
             EditorGUILayout.EndVertical();
@@ -78,13 +79,13 @@ namespace XIHLocalization
         }
         HashSet<string> GetCfg(Dictionary<XIHLanguage, int> lgsDics, ISheet sheet)
         {
-            I18NCfg cfg = AssetDatabase.LoadAssetAtPath<I18NCfg>(I18NUtil.AssetPath);
+            I18NCfg cfg = AssetDatabase.LoadAssetAtPath<I18NCfg>(AssetEditorPath);
             if (cfg == null)
             {
                 cfg = ScriptableObject.CreateInstance<I18NCfg>();
-                var dir = Path.GetDirectoryName(I18NUtil.AssetPath);
+                var dir = Path.GetDirectoryName(AssetEditorPath);
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                AssetDatabase.CreateAsset(cfg, I18NUtil.AssetPath);
+                AssetDatabase.CreateAsset(cfg, AssetEditorPath);
             }
             cfg.keyWords = new List<KeyWords>();
             int rowNum = 1;

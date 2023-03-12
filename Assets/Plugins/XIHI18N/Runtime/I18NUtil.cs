@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace XIHLocalization
@@ -14,17 +13,18 @@ namespace XIHLocalization
     public static class I18NUtil
     {
         public const string ASSET_NAME = "i18n.asset";
-        public static string AssetPath = $"Assets/ABs/I18N/{ASSET_NAME}";
+        public static string AB_Path = "Assets/ABs/I18N";
         public static event Action<XIHLanguage> LanugeChanged;
         public readonly static Dictionary<string, Dictionary<XIHLanguage, string>> wordsDics;
         public readonly static Dictionary<string, Sprite> spriteDics;
         public static XIHLanguage SavedLanguage { get; private set; }
         static I18NUtil()
         {
-            int lag = PlayerPrefs.GetInt("LANGUAGE", 0);
             wordsDics = new Dictionary<string, Dictionary<XIHLanguage, string>>();
             spriteDics = new Dictionary<string, Sprite>();
-            SavedLanguage = (XIHLanguage)lag;
+            var lag = XIHLanguage.none;
+            Debug.LogError("1/4 此处需要自己设置运行时读取本地语言");
+            SavedLanguage = lag;
             if (SavedLanguage == XIHLanguage.none)
             {
                 SystemLanguage language = Application.systemLanguage;
@@ -46,15 +46,17 @@ namespace XIHLocalization
         }
         public static void Reset() {
 #if UNITY_EDITOR
-            I18NCfg cfg = UnityEditor.AssetDatabase.LoadAssetAtPath<I18NCfg>(AssetPath);
-#else 
-            I18NCfg cfg=null;
+            I18NCfg cfg = UnityEditor.AssetDatabase.LoadAssetAtPath<I18NCfg>($"{AB_Path}/{ASSET_NAME}");
+#else
+            I18NCfg cfg = null;
 #endif
+            Debug.LogError("2/4 此处需要自己设置运行时读取本地化配置");
             if (cfg == null)
             {
-                Debug.LogError($"File Not Exits in {AssetPath},Please change yourself logic to load I18NCfg");
+                Debug.LogError($"File Not Exits in {AB_Path}/{ASSET_NAME},Please change yourself logic to load I18NCfg");
                 return;
             }
+            spriteDics.Clear();
             wordsDics.Clear();
             foreach (var keys in cfg.keyWords)
             {
@@ -69,9 +71,7 @@ namespace XIHLocalization
         public static void SetLanguage(XIHLanguage language)
         {
             if (SavedLanguage == language && wordsDics.Count > 0) return;
-            PlayerPrefs.SetInt("LANGUAGE", (int)language);
-            PlayerPrefs.Save();
-            Debug.Log("自定义保存当前语言");
+            Debug.LogError("3/4 此处需要自己设置运行时保存本地语言");
             SavedLanguage = language;
             LanugeChanged?.Invoke(SavedLanguage);
         }
@@ -101,10 +101,11 @@ namespace XIHLocalization
             }
             if (spriteDics.ContainsKey(ph)) return spriteDics[ph];
 #if UNITY_EDITOR
-            Sprite sp = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(ph);
-#else 
+            Sprite sp =  UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(ph);
+#else
             Sprite sp = null;
 #endif
+            Debug.LogError("4/4(end) 最后这需要自己设置运行时读取本地化路径的图片资源");
             if (sp == null)
             {
                 Debug.LogError($"File Not Exits in {ph},Please change yourself logic to load sprite");
